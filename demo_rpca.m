@@ -34,7 +34,7 @@ title(sprintf('Corrupted\n RelErr=%.3f, PSNR=%.2f dB',norm(y - X(:))/norm(X(:)),
 
 
 % --- soft thresholding --------------------
-lamdas = logspace(-5, 2, 50);
+lamdas = logspace(-5, 2, 60);
 parfor k = 1:length(lamdas); 
     [L, S, out] = lq_lq_l2_admm(reshape(y, m, n), lamdas(k), 1, 1, zeros(m,n), zeros(m,n), X, Strue);
     relerr1(k)  = norm(L-X,'fro')/norm(X,'fro');
