@@ -38,13 +38,13 @@ W = zeros(m,n);
 U = zeros(m,n);
 
 betaT = 5e2;
-beta = 5e-5; 
-
 rhoT = 5*betaT;
+beta = 2/norm(M(:));
 rho1 = 0.1*beta;
 
 out.el = []; 
 out.es = [];
+num_stop = 0;
 
 for iter = 1:MAX_ITER
 
@@ -83,7 +83,12 @@ for iter = 1:MAX_ITER
         
     %Check for convergence
     if (norm(L-Lm1,'fro')< sqrt(m*n)*ABSTOL) & (norm(S-Sm1,'fro')< sqrt(m*n)*ABSTOL)
-        break;           
+        num_stop = num_stop + 1;
+        if num_stop==3
+            break;
+        end
+    else
+        num_stop = 0;
     end
 
 end
